@@ -1,0 +1,15 @@
+package com.pes.lib
+
+fun getNumber(data: String): Int {
+    return try {
+        data.toInt()
+    } catch (e: NumberFormatException) {
+        println("Invalid number: '$data' is not a valid integer")
+        -1
+    }
+}
+
+fun main() {
+    println(getNumber("12"))     // string with only digits -> 12
+    println(getNumber("a1as"))   // invalid -> handled, returns -1
+}
