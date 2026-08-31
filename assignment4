@@ -1,0 +1,54 @@
+package com.pes.lib
+
+open class BankAccount(
+    val accName: String,
+    val accNumber: Int,
+    var balance: Int = 0
+) {
+    open fun displayInfo() {
+        println("Account Holder Name: $accName")
+        println("Account Number: $accNumber")
+        println("Balance: $balance")
+    }
+}
+
+class SavingAccount(
+    accName: String,
+    accNumber: Int,
+    balance: Int = 0,
+    var interestRate: Float
+) : BankAccount(accName, accNumber, balance) {
+
+    fun credit(amount: Int) {
+        if (amount > 0) {
+            balance += amount
+        } else {
+            println("Credit amount must be positive")
+        }
+    }
+
+    fun debit(amount: Int) {
+        if (amount in 1..balance) {
+            balance -= amount
+        } else {
+            println("Insufficient balance or invalid debit amount")
+        }
+    }
+
+    override fun displayInfo() {
+        super.displayInfo()
+        println("Interest Rate: $interestRate%")
+    }
+}
+
+fun main() {
+    val savings = SavingAccount(
+        accName = "John Doe",
+        accNumber = 101,
+        interestRate = 4.5f
+    )
+
+    savings.credit(5000)
+    savings.debit(1500)
+    savings.displayInfo()
+}
